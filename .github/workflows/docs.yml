@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Install Rust toolchain
         # uncomment if using workspaces wth `enable-index-page`
@@ -34,7 +34,7 @@ jobs:
           # https://dev.to/deciduously/prepare-your-rust-api-docs-for-github-pages-2n5i
           echo '<meta http-equiv="refresh" content="0; url=ofxy">' > target/doc/index.html
       - name: Upload artifact to Pages
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: 'target/doc'
 
@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v5
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
