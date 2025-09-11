@@ -34,7 +34,7 @@ jobs:
           # https://dev.to/deciduously/prepare-your-rust-api-docs-for-github-pages-2n5i
           echo '<meta http-equiv="refresh" content="0; url=ofxy">' > target/doc/index.html
       - name: Upload artifact to Pages
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: 'target/doc'
 
