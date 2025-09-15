@@ -9,18 +9,17 @@ description = "Parse OFX files"
 repository = "https://github.com/n8henrie/ofxy"
 
 [dependencies]
-chrono = { version = "0.4.41", features = ["serde"], default-features = false }
-isolang = { version = "2.4.0", features = ["lowercase_names", "serde"] }
-rust_decimal = "1.37.1"
-serde = { version = "1.0.219", default-features = false, features = ["derive"] }
-sgmlish = "0.2.0"
-thiserror = "2.0.12"
-tracing = "0.1.41"
+chrono = { version = "0.4", features = ["serde"], default-features = false }
+isolang = { version = "2", features = ["lowercase_names", "serde"] }
+rust_decimal = "1"
+serde = { version = "1", default-features = false, features = ["derive"] }
+sgmlish = "0.2"
+thiserror = "2"
+tracing = "0.1"
 
 [lints.clippy]
 pedantic = "warn"
 
 [dev-dependencies]
-chardetng = "0.1.17"
-encoding_rs = "0.8.35"
-serde_test = "1.0.177"
+chardetng = "0.1"
+encoding_rs = "0.8"
