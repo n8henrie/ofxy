@@ -216,11 +216,64 @@ pub struct Balance {
 }
 
 #[derive(Debug, Deserialize, PartialEq)]
+pub struct BankMessageResponse {
+    #[serde(rename = "STMTTRNRS")]
+    pub transaction_response: StatementTransactionResponse,
+}
+
+#[derive(Debug, Deserialize, PartialEq)]
+pub struct StatementTransactionResponse {
+    #[serde(rename = "TRNUID")]
+    pub transaction_id: String,
+    #[serde(rename = "STATUS")]
+    pub status: Status,
+    #[serde(rename = "STMTRS")]
+    pub statement: StatementResponse,
+}
+
+#[derive(Debug, Deserialize, PartialEq)]
+pub struct StatementResponse {
+    #[serde(rename = "CURDEF")]
+    pub currency: String,
+    #[serde(rename = "BANKACCTFROM")]
+    pub account: Option<BankAccount>,
+    #[serde(rename = "BANKTRANLIST")]
+    pub bank_transactions: Option<BankTransactionList>,
+    #[serde(rename = "LEDGERBAL")]
+    pub ledger_balance: Option<Balance>,
+    #[serde(rename = "AVAILBAL")]
+    pub available_balance: Option<Balance>,
+}
+
+#[derive(Debug, Deserialize, PartialEq)]
+pub struct BankAccount {
+    #[serde(rename = "BANKID")]
+    pub bank_id: String,
+    #[serde(rename = "ACCTID")]
+    pub id: String,
+    #[serde(rename = "ACCTTYPE")]
+    pub account_type: AccountType,
+}
+
+// 11.3.1.2 Account Types for <ACCTTYPE> and <ACCTTYPE2> Elements
+#[derive(Debug, Deserialize, PartialEq)]
+#[serde(rename_all = "UPPERCASE")]
+pub enum AccountType {
+    Checking,
+    Savings,
+    Moneymrkt,
+    Creditline,
+    Cma,
+}
+
+#[derive(Debug, Deserialize, PartialEq)]
 pub struct Body {
     #[serde(rename = "SIGNONMSGSRSV1")]
     pub sign_on: Option<SignOnMessageResponse>,
     #[serde(rename = "CREDITCARDMSGSRSV1")]
     pub credit_card: Option<CreditCardMessageResponse>,
+    #[serde(rename = "BANKMSGSRSV1")]
+    pub bank: Option<BankMessageResponse>,
 }
 
 impl FromStr for Body {

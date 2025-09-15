@@ -157,6 +157,8 @@ fn parses_files() -> result::Result<(), Box<dyn std::error::Error>> {
                 "tests/files/ofx-reader/Bradesco.ofx",
                 //   bad timezone: `[-:EST]`
                 "tests/files/ofxparse/investment_medium.ofx",
+                // Non-standard structure with duplicate STMTRS elements in single STMTTRNRS
+                "tests/files/ofxparser/ofxdata-bb-two-stmtrs.ofx",
             ];
 
             if skip_tests.contains(&entry.display().to_string().as_str()) {
@@ -177,4 +179,31 @@ fn parses_files() -> result::Result<(), Box<dyn std::error::Error>> {
         }
     }
     Ok(())
+}
+
+#[test]
+fn test_citi() {
+    let input = std::fs::read_to_string("tests/files/citi.ofx").unwrap();
+    let ofx: Ofx = input.parse().expect("unable to parse OFX file");
+    let transaction_response = ofx
+        .body
+        .bank
+        .expect("missing bank statement")
+        .transaction_response;
+
+    assert_eq!(
+        transaction_response.statement.account.as_ref().unwrap().id,
+        "XXXXXXXXXXXX1234"
+    );
+
+    let transactions = transaction_response
+        .statement
+        .bank_transactions
+        .expect("missing bank transactions")
+        .transactions;
+    assert_eq!(transactions.len(), 3);
+    assert_eq!(
+        transactions[0].amount,
+        Decimal::from_str("-127.15").unwrap()
+    );
 }
