@@ -124,7 +124,6 @@ pub struct Currency {
     pub symbol: String,
 }
 
-// Sign-on message response
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct SignOnMessageResponse {
     #[serde(rename = "SONRS")]
@@ -163,7 +162,6 @@ impl<'de> serde::Deserialize<'de> for Language {
     }
 }
 
-// Credit card message response
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct CreditCardMessageResponse {
     #[serde(rename = "CCSTMTTRNRS")]
@@ -217,7 +215,6 @@ pub struct Balance {
     pub date: DateTime<Utc>,
 }
 
-// OFX document structure
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Body {
     #[serde(rename = "SIGNONMSGSRSV1")]
